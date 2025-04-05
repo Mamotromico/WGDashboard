@@ -12,7 +12,7 @@ on:
         default: 'true'
 
 env:
-  DOCKER_IMAGE: donaldzou/wgdashboard
+  DOCKER_IMAGE: mamotromico/wgdashboard
 
 jobs:
   docker_build_analyze:
@@ -52,4 +52,4 @@ jobs:
           command: cves
           image: ${{ env.DOCKER_IMAGE }}:latest
           only-severities: critical,high,medium,low,unspecified
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ github.token }}
