@@ -43,24 +43,6 @@ ensure_installation() {
   ./wgd.sh install
 
   echo "Looks like the installation succeeded. Moving on."
-
-  # This first step is to ensure the wg0.conf file exists, and if not, then its copied over from the ephemeral container storage.
-  # This is done so WGDashboard it works out of the box
-
-  if [ ! -f "/etc/wireguard/wg0.conf" ]; then
-    echo "Standard wg0 Configuration file not found, grabbing template."
-    cp -a "/configs/wg0.conf.template" "/etc/wireguard/wg0.conf"
-
-    echo "Setting a secure private key." # SORRY 4 BE4 - Daan
-
-    local privateKey
-    privateKey=$(wg genkey)
-    sed -i "s|^PrivateKey *=.*$|PrivateKey = ${privateKey}|g" /etc/wireguard/wg0.conf
-
-    echo "Done setting template."
-  else
-    echo "Existing wg0 configuration file found, using that."
-  fi
 }
 
 set_envvars() {
